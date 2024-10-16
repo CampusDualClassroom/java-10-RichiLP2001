@@ -1,15 +1,33 @@
 package com.campusdual.classroom;
 
+import com.sun.source.tree.SwitchTree;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Exercise10 {
+
+
+
 
     //TODO ↓
     // Imprimir el color de las pelotas que salgan, hasta que salgan 2 de color azul
     // El mensaje a imprimir es → La bola es de color: COLOR_BOLA
     // COLOR_BOLA puede ser → rojo, azul, verde
     public static void main(String[] args) {
+        String previousBall = "";
+        String currentBall;
+        int blueCount = 0;
+        do {
+            currentBall = Exercise10.getBall();
+            System.out.println("La bola es de color: "+currentBall);
+            if (currentBall == "azul"){
+                blueCount = blueCount + 1;
+            }else{
+                blueCount=0;
+            }
 
+    } while (blueCount<2);
+      /*  System.out.println("Se obtuvieron 2 bolas azules");*/
     }
 
     //TODO ↓
@@ -20,10 +38,23 @@ public class Exercise10 {
     // 2 → azul
     // 3 → verde
     public static String getBall() {
-        return null;
-    }
+        int randomValue = randomWithRange(1,3);
+        switch (randomValue) {
+            case 1:
+                return "azul";
+            case 2:
+                return "rojo";
+            case 3:
+                return "verde";
+            default:
+                return "Desconocido";
+        }
+            }
 
     public static int randomWithRange(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min,max);
+        if (min>max){
+            throw new IllegalArgumentException("El valor minimo no puede ser mayor que el maximo");
+        }
+        return ThreadLocalRandom.current().nextInt(min,max + 1);
     }
 }
